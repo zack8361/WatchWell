@@ -35,27 +35,32 @@ public class LogAspect {
     @Pointcut("execution(public * com.watchwell.web.controller..*(..))")
     private void sessionCheck(){}
 
-//    @Around("publicTarget()")
-//    public Object calcPerformaceAdvice(ProceedingJoinPoint pjp) throws Throwable{
-//        Object result = pjp.proceed();
-//        MethodSignature signature = (MethodSignature) pjp.getSignature();
-//        Method method = signature.getMethod();
-//
-//
-//        Date date = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Object nowdate = dateFormat.format(date);
-//
-//        logger.info("메소드 : {} / 접근시간 : {}",method.getName(), nowdate);
-//
-//        return result;
-//    }
+    @Around("publicTarget()")
+    public Object calcPerformaceAdvice(ProceedingJoinPoint pjp) throws Throwable{
+        Object result = pjp.proceed();
+        MethodSignature signature = (MethodSignature) pjp.getSignature();
+        Method method = signature.getMethod();
 
-    @Before("sessionCheck()")
-    public void beforeSessionCheck() throws Throwable{
 
-        HttpSession httpSession;
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Object nowdate = dateFormat.format(date);
 
-        System.out.println("\"hi\" = " + "hi");
+        logger.info("메소드 : {} / 접근시간 : {}",method.getName(), nowdate);
+
+        return result;
     }
+
+    @Before("sessionCheck() && args(httpSession,..)")
+    public void beforeSessionCheck(HttpSession httpSession) throws Throwable{
+        String sessionId = (String) httpSession.getAttribute("sessionId");
+
+        if(sessionId == null || !sessionId.equals("zack8361")){
+            System.out.println("다시 입력하세요");
+        }
+        else {
+            System.out.println("잘왓음");
+        }
+    }
+
 }

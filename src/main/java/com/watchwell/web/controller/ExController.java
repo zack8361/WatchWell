@@ -11,8 +11,7 @@ public class ExController {
 
     @GetMapping("/")
     public String main(HttpSession httpSession){
-
-        System.out.println("세션체크 " + httpSession.getAttribute("sessionId"));
+        
         System.out.println("메인 컨트롤러 접근");
         return null;
     }
