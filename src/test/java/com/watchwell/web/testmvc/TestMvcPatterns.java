@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestMvcPatterns {
 
-
-
     @Test
     @DisplayName("MVC TESTING SOON")
     public void testMvcPatter(){

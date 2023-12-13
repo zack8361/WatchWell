@@ -19,4 +19,9 @@ public class MainServiceImpl implements MainService {
     public int guessYourAge(int age) {
         return mainDao.guessYourAge(age);
     }
+
+    @Override
+    public int getToken() {
+        return 123330124;
+    }
 }
